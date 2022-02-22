@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "accountId": "123456",
+      "name": "natalie",
+      "roleType": "user",
+      "enabledFeatures": ["allow-to-view-docs", "allow-edit-profile"]
+    },
+    {
+      "accountId": "2233344",
+      "name": "Jack",
+      "roleType": "user",
+      "enabledFeatures": ["young-person-promo"]
+    },
+    {
+      "accountId": "112233",
+      "name": "Harry",
+      "roleType": "admin",
+      "enabledFeatures": ["allow-to-view-docs", "allow-edit-other-users", "allow-to-give-permission"]
+    }
+  ]
+}

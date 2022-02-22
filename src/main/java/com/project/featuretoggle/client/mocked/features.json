@@ -1,0 +1,32 @@
+{
+  "features": [
+    {
+      "name": "allow-to-view-docs",
+      "default": false
+    },
+    {
+      "name": "allow-edit-profile",
+      "default": true
+    },
+    {
+      "name": "allow-edit-other-users",
+      "default": false
+    },
+    {
+      "name": "allow-read-only",
+      "default": true
+    },
+    {
+      "name": "allow-to-give-permission",
+      "default": false
+    },
+    {
+      "name": "young-person-promo",
+      "default": false
+    },
+    {
+      "name": "older-person-promo",
+      "default": false
+    }
+  ]
+}
