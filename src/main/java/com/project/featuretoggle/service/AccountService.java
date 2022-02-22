@@ -5,13 +5,16 @@
 //import com.project.featuretoggle.domain.Feature;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.stereotype.Service;
+//import org.springframework.web.client.HttpClientErrorException;
 //
 //import javax.servlet.http.HttpServletRequest;
 //import javax.websocket.Session;
 //import java.util.List;
+//import java.util.Objects;
 //import java.util.UUID;
 //
 //import static java.util.Objects.nonNull;
+//import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 //
 //@Service
 //@RequiredArgsConstructor
@@ -19,25 +22,23 @@
 //
 //    AccountClient accountClient;
 //
-//    public Session authenticateUser(HttpServletRequest request, AuthenticationDetails authenticationDetails) {
-//        List<Feature> allFeatures = featureClient.getAllFeatures();
+//    public UUID authenticateUser(HttpServletRequest request, AuthenticationDetails authenticationDetails) {
 //        UUID accountId = accountClient.authenticateUser(authenticationDetails);
 //
 //        if (nonNull(accountId)) {
-//            Session authenticatedSessionRequest = Session.builder
-//                    .isAuthenticated(true)
-//                    .accountId(accountId)
-//                    .build();
-//
-//            UUID sessionId = sessionClient.create(authenticatedSessionRequest);
-//            setSessionId(sessionId, request);
-//
+//            request.getSession().setAttribute("isAuthenticated", "true");
+//            request.getSession().setAttribute("accountId", accountId);
+//            // UUID sessionId = sessionClient.create(authenticatedSessionRequest);
+//            //  setSessionId(sessionId, request);
 //            return authenticatedSessionRequest;
 //        }
 //
-//        return Session.builder
-//                .isAuthenticated(false)
-//                .build();
+//        throw new HttpClientErrorException(UNAUTHORIZED);
+//    }
+//
+//    public Boolean isUserAuthenticated(HttpServletRequest request) {
+//        String isAuthenticated = (String) request.getSession().getAttribute("isAuthenticated");
+//        return isAuthenticated.contentEquals("true");
 //    }
 //
 //    public void setSessionId(UUID sessionId, HttpServletRequest request) {
@@ -47,5 +48,4 @@
 //    public UUID getSessionId(HttpServletRequest request) {
 //        return (UUID) request.getAttribute("session-id");
 //    }
-//
 //}

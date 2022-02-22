@@ -1,11 +1,12 @@
 package com.project.featuretoggle.service;
 
-import com.project.featuretoggle.client.FeatureClient;
 import com.project.featuretoggle.client.AccountClient;
+import com.project.featuretoggle.client.FeatureClient;
 import com.project.featuretoggle.domain.Feature;
 import com.project.featuretoggle.domain.Features;
 import com.project.featuretoggle.domain.User;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
@@ -31,31 +32,32 @@ public class FeatureService {
                 .featureName(featureName)
                 .enabled(false)
                 .build();
-        try {
-            return featureClient.add(feature);
-        } catch (HttpClientErrorException exception) {
-            throw new RuntimeException("unable to create new feature");
-        }
+        return featureClient.add(feature);
+
     }
 
     public Features getAllEnabledFeaturesForUser(UUID accountId) {
         List<Feature> allFeatures = featureClient.getAllFeatures();
-        User user = accountClient.getUser(accountId);
-        List<String> usersPersonalEnabledFeatures = user.getEnabledFeatures();
+        try {
+            User user = accountClient.getUser(accountId);
+            List<String> usersPersonalEnabledFeatures = user.getEnabledFeatures();
 
-        List<Feature> listOfGloballyEnabledFeatures = allFeatures.stream()
-                .filter(feature -> feature.isEnabled())
-                .collect(toList());
+            List<Feature> listOfGloballyEnabledFeatures = allFeatures.stream()
+                    .filter(feature -> feature.isEnabled())
+                    .collect(toList());
 
-        for (String feature: usersPersonalEnabledFeatures) {
-            listOfGloballyEnabledFeatures.add(Feature.builder()
-                    .featureName(feature)
-                    .enabled(true).build());
+            for (String feature: usersPersonalEnabledFeatures) {
+                listOfGloballyEnabledFeatures.add(Feature.builder()
+                        .featureName(feature)
+                        .enabled(true).build());
+            }
+
+            return Features.builder()
+                    .features(listOfGloballyEnabledFeatures)
+                    .build();
+        } catch (HttpClientErrorException exception) {
+            throw new RuntimeException("unable get user");
         }
-
-        return Features.builder()
-                .features(listOfGloballyEnabledFeatures)
-                .build();
     }
 
 

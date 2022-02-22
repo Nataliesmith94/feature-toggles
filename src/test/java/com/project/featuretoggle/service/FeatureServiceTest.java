@@ -93,13 +93,14 @@ class FeatureServiceTest {
         when(accountClient.getUser(accountId)).thenReturn(createUser(Collections.emptyList()));
         when(featureClient.getAllFeatures()).thenReturn(createFeatureList());
 
-        Features result = featureService.getAllEnabledFeaturesForUser(accountId);
-
         List<Feature> allEnabledFeatures = asList(
                 createFeature("Global-enabled-1", true),
                 createFeature("Global-enabled-2", true)
         );
         Features expectedResult = Features.builder().features(allEnabledFeatures).build();
+
+        Features result = featureService.getAllEnabledFeaturesForUser(accountId);
+
 
 
         assertThat(result).isEqualTo(expectedResult);

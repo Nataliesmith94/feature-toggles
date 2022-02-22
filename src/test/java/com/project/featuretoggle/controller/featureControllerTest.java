@@ -97,4 +97,14 @@ class featureControllerTest {
                 .featureName(featureName)
                 .enabled(enabled).build();
     }
+
+
+//    private HashMap<String, Boolean> createFeatureHashMap() {
+//        HashMap<String, Boolean> featureToggleMap = new HashMap<String, Boolean>();
+//        featureToggleMap.put("Global-enabled-1", true);
+//        featureToggleMap.put("Global-enabled-2", true);
+//        featureToggleMap.put("personal-enabled-3", true);
+//        featureToggleMap.put("personal-enabled-4", true);
+//        return featureToggleMap;
+//    }
 }

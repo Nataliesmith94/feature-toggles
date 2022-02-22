@@ -7,7 +7,6 @@ import lombok.Value;
 import java.util.List;
 import java.util.UUID;
 
-@RequiredArgsConstructor
 @Value
 @Builder
 public class User {

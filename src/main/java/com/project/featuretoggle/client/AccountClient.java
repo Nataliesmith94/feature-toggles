@@ -22,10 +22,11 @@ public class AccountClient {
                 .enabledFeatures(asList("allow-to-view-docs", "allow-edit-profile")).build();
     }
 
-//    public UUID authenticateUser(AuthenticationDetails authenticationDetails) {
-//        // call account service with user name and password and accountId
-//        return UUID.randomUUID();
-//    }
+    public UUID authenticateUser(AuthenticationDetails authenticationDetails) {
+        // call account service with username and password to get back accountId
+        // User response = restTemplate.postForObject(url, request, User.class);
+        return UUID.randomUUID();
+    }
 
 //    public Session getSession(UUID sessionId) {
 //        // call session service to get session information back
